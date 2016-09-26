@@ -22,14 +22,11 @@ typedef struct __PHONE_BOOK_DETAIL {
 
 typedef struct __PHONE_BOOK_ENTRY {
     char lastName[MAX_LAST_NAME_SIZE];
-    unsigned long hash_num;
     detail *book_detail;
-    struct __PHONE_BOOK_ENTRY *pHash;
     struct __PHONE_BOOK_ENTRY *pNext;
 } entry;
 
 entry *findName(char lastName[], entry *pHead);
 entry *append(char lastName[], entry *e);
-unsigned long hash(char *str);
 
 #endif
