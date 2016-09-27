@@ -25,7 +25,7 @@ int main(void)
     }
     fclose(fp);
 
-    fp = fopen("opt.txt", "r");
+    fp = fopen("opt_hash.txt", "r");
     if (!fp) {
         fp = fopen("orig.txt", "r");
         if (!fp) {
@@ -33,17 +33,17 @@ int main(void)
             exit(0);
         }
     }
-    double opt_sum_a = 0.0, opt_sum_f = 0.0, opt_a, opt_f, opt_total=0.0, opt_t;
+    double opt_hash_sum_a = 0.0, opt_hash_sum_f = 0.0, opt_hash_a, opt_hash_f, opt_hash_total=0.0, opt_hash_t;
     for (i = 0; i < 100; i++) {
         if (feof(fp)) {
             printf("ERROR: You need 100 datum instead of %d\n", i);
             printf("run 'make run' longer to get enough information\n\n");
             exit(0);
         }
-        fscanf(fp, "%s %s %s %lf %lf %lf\n", append, find,total , &opt_a, &opt_f,&opt_t);
-        opt_sum_a += opt_a;
-        opt_sum_f += opt_f;
-        opt_total=opt_sum_a+opt_sum_f;
+        fscanf(fp, "%s %s %s %lf %lf %lf\n", append, find,total , &opt_hash_a, &opt_hash_f,&opt_hash_t);
+        opt_hash_sum_a += opt_hash_a;
+        opt_hash_sum_f += opt_hash_f;
+        opt_hash_total=opt_hash_sum_a+opt_hash_sum_f;
     }
 
     fclose(fp);
@@ -68,9 +68,9 @@ int main(void)
         opt_struct_sum_f += opt_struct_f;
         opt_struct_total=opt_struct_sum_a+opt_struct_sum_f;
     }
-    fprintf(output, "append() %lf %lf %lf\n",orig_sum_a / 100.0, opt_struct_sum_a / 100.0, opt_sum_a / 100.0);
-    fprintf(output, "findName() %lf %lf %lf\n", orig_sum_f / 100.0, opt_struct_sum_f / 100.0, opt_sum_f / 100.0);
-    fprintf(output, "total %lf %lf %lf",orig_total / 100.0, opt_struct_total / 100.0,opt_total / 100.0);
+    fprintf(output, "append() %lf %lf %lf\n",orig_sum_a / 100.0, opt_struct_sum_a / 100.0, opt_hash_sum_a / 100.0);
+    fprintf(output, "findName() %lf %lf %lf\n", orig_sum_f / 100.0, opt_struct_sum_f / 100.0, opt_hash_sum_f / 100.0);
+    fprintf(output, "total %lf %lf %lf",orig_total / 100.0, opt_struct_total / 100.0,opt_hash_total / 100.0);
     fclose(output);
     fclose(fp);
 

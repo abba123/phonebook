@@ -3,10 +3,10 @@ CFLAGS_common ?= -Wall -std=gnu99
 CFLAGS_orig = -O0
 CFLAGS_opt  = -O0
 
-EXEC = phonebook_orig phonebook_opt_struct phonebook_opt
+EXEC = phonebook_orig phonebook_opt_struct phonebook_opt_hash
 all: $(EXEC)
 
-SRCS_common = main.c
+SRCS_common_hash = main_hash.c
 SRCS_common_orig = main_orig.c
 SRCS_common_struct = main_struct.c
 
@@ -20,10 +20,10 @@ phonebook_opt_struct: $(SRCS_common_struct) phonebook_opt_struct.c phonebook_opt
 		-DIMPL="\"$@.h\"" -o $@ \
 		$(SRCS_common_struct) $@.c
 
-phonebook_opt: $(SRCS_common) phonebook_opt.c phonebook_opt.h
+phonebook_opt_hash: $(SRCS_common_hash) phonebook_opt_hash.c phonebook_opt_hash.h
 	$(CC) $(CFLAGS_common) $(CFLAGS_opt) \
 		-DIMPL="\"$@.h\"" -o $@ \
-		$(SRCS_common) $@.c
+		$(SRCS_common_hash) $@.c
 
 run: $(EXEC)
 	echo 3 | sudo tee /proc/sys/vm/drop_caches
@@ -38,7 +38,7 @@ cache-test: $(EXEC)
 		./phonebook_opt_struct
 	perf stat --repeat 100 \
 		-e cache-misses,cache-references,instructions,cycles \
-		./phonebook_opt
+		./phonebook_opt_hash
 
 
 output.txt: cache-test calculate
