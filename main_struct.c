@@ -7,7 +7,6 @@
 #include IMPL
 
 #define DICT_FILE "./dictionary/words.txt"
-#define HASH_SIZE 42737
 
 static double diff_in_second(struct timespec t1, struct timespec t2)
 {
@@ -38,13 +37,12 @@ int main(int argc, char *argv[])
     }
 
     /* build the entry */
-    hash_table *pHead, *e;
-    pHead = (hash_table *) malloc(sizeof(hash_table));
-    printf("size of entry : %lu bytes\n", sizeof(hash_table));
+    entry *pHead, *e;
+    pHead = (entry *) malloc(sizeof(entry));
+    printf("size of entry : %lu bytes\n", sizeof(entry));
     e = pHead;
+    e->pNext = NULL;
 
-    e=Create_hashtable(e,HASH_SIZE);
-	printf("OK");
 #if defined(__GNUC__)
     __builtin___clear_cache((char *) pHead, (char *) pHead + sizeof(entry));
 #endif
@@ -54,8 +52,7 @@ int main(int argc, char *argv[])
             i++;
         line[i - 1] = '\0';
         i = 0;
-        e=pHead;
-        append(line, e);
+        e = append(line, e);
     }
     clock_gettime(CLOCK_REALTIME, &end);
     cpu_time1 = diff_in_second(start, end);
@@ -84,17 +81,17 @@ int main(int argc, char *argv[])
 
     FILE *output;
 #if defined(OPT)
-    output = fopen("opt.txt", "a");
+    output = fopen("opt_struct.txt", "a");
 #else
     output = fopen("orig.txt", "a");
 #endif
-    fprintf(output, "append() findName() total() %lf %lf %lf\n", cpu_time1, cpu_time2, cpu_time1+cpu_time2);
+    fprintf(output, "append() findName() total() %lf %lf %lf\n", cpu_time1, cpu_time2,cpu_time1+cpu_time2);
     fclose(output);
 
     printf("execution time of append() : %lf sec\n", cpu_time1);
     printf("execution time of findName() : %lf sec\n", cpu_time2);
-	
-   
+
+    if (pHead->pNext) free(pHead->pNext);
     free(pHead);
 
     return 0;

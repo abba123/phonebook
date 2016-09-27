@@ -6,54 +6,45 @@
 #include "phonebook_opt.h"
 
 /* original version */
-entry *findName(char lastName[], entry *pHead)
+entry *findName(char lastName[], hash_table *pHead)
 {
-    unsigned long x=hash(lastName);
-    while (pHead != NULL) {
-        if(x==pHead->hash_num) {
-            while(pHead != NULL) {
-                pHead=pHead->pNext;
-                if (strcasecmp(lastName, pHead->lastName) == 0)
-                    return pHead;
-                pHead=pHead->pNext;
-            }
-        }
-        pHead = pHead->pHash;
+    int x=hash(lastName);
+	entry *e;
+	e=pHead->table[x];
+    while (e != NULL) {
+        if(strcasecmp(e->lastName,lastName)==0)
+		return e;
+        e = e->pNext;
     }
     return NULL;
 }
 
-entry *append(char lastName[], entry *e)
+entry *append(char lastName[], hash_table *e)
 {
     /* allocate memory for the new entry and put lastName */
-    unsigned long x=hash(lastName);
-    printf("%s",lastName);
-    while(e->pHash!=NULL) {
-        e=e->pHash;
-        if(e->hash_num==x) {
-            entry *node=(entry *)malloc(sizeof(entry));
-            node->hash_num=x;
-            strcpy(node->lastName,lastName);
-            node->pNext=e->pNext;
-            e->pNext=node;
-            return 0;
-        }
-    }
-    e->pHash = (entry *) malloc(sizeof(entry));
-    e = e->pHash;
-    strcpy(e->lastName, lastName);
-    e->hash_num=hash(lastName);
-    e->pNext = NULL;
-    e->pHash = NULL;
+    int x=hash(lastName);
+    entry *node;
+    node = (entry *) malloc(sizeof(entry));
+    node->pNext=e->table[x];
+    e->table[x]=node;
+    strcpy(node->lastName, lastName);
 
     return 0;
 }
 
-unsigned long hash(char *str)
+int hash(char *str)
 {
     unsigned long hash=5381;
-    int c;
-    c=*str++;
-    hash = ((hash<<5)+hash)+c;
-    return hash;
+    while(*str != '\0')
+    	hash = (hash<<5)+ *str++;
+    return hash%42737;
+}
+
+hash_table *Create_hashtable(hash_table *t,int size){
+	int i=0;
+	t->table=(entry **)malloc(sizeof(entry)*size);
+	for(i=0;i<size;i++){
+	t->table[i]=NULL;
+}
+return t;
 }

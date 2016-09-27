@@ -81,11 +81,11 @@ int main(int argc, char *argv[])
 
     FILE *output;
 #if defined(OPT)
-    output = fopen("opt.txt", "a");
+    output = fopen("opt_struct.txt", "a");
 #else
     output = fopen("orig.txt", "a");
 #endif
-    fprintf(output, "append() findName() %lf %lf\n", cpu_time1, cpu_time2);
+    fprintf(output, "append() findName() total() %lf %lf %lf\n", cpu_time1, cpu_time2,cpu_time1+cpu_time2);
     fclose(output);
 
     printf("execution time of append() : %lf sec\n", cpu_time1);
