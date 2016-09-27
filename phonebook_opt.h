@@ -26,9 +26,9 @@ typedef struct __PHONE_BOOK_ENTRY {
     struct __PHONE_BOOK_ENTRY *pNext;
 } entry;
 
-typedef struct hash_table{
-	entry **table;
-}hash_table;
+typedef struct hash_table {
+    entry **table;
+} hash_table;
 
 entry *findName(char lastName[], hash_table *pHead);
 entry *append(char lastName[], hash_table *e);

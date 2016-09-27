@@ -21,7 +21,7 @@ int main(void)
         fscanf(fp, "%s %s %s %lf %lf %lf\n", append, find,total, &orig_a, &orig_f,&orig_t);
         orig_sum_a += orig_a;
         orig_sum_f += orig_f;
-	orig_total=orig_sum_a+orig_sum_f;
+        orig_total=orig_sum_a+orig_sum_f;
     }
     fclose(fp);
 
@@ -43,12 +43,12 @@ int main(void)
         fscanf(fp, "%s %s %s %lf %lf %lf\n", append, find,total , &opt_a, &opt_f,&opt_t);
         opt_sum_a += opt_a;
         opt_sum_f += opt_f;
-	opt_total=opt_sum_a+opt_sum_f;
+        opt_total=opt_sum_a+opt_sum_f;
     }
 
     fclose(fp);
 
- fp = fopen("opt_struct.txt", "r");
+    fp = fopen("opt_struct.txt", "r");
     if (!fp) {
         fp = fopen("orig.txt", "r");
         if (!fp) {
@@ -66,11 +66,11 @@ int main(void)
         fscanf(fp, "%s %s %s %lf %lf %lf\n", append, find,total , &opt_struct_a, &opt_struct_f,&opt_struct_t);
         opt_struct_sum_a += opt_struct_a;
         opt_struct_sum_f += opt_struct_f;
-	opt_struct_total=opt_struct_sum_a+opt_struct_sum_f;
+        opt_struct_total=opt_struct_sum_a+opt_struct_sum_f;
     }
     fprintf(output, "append() %lf %lf %lf\n",orig_sum_a / 100.0, opt_struct_sum_a / 100.0, opt_sum_a / 100.0);
     fprintf(output, "findName() %lf %lf %lf\n", orig_sum_f / 100.0, opt_struct_sum_f / 100.0, opt_sum_f / 100.0);
-	fprintf(output, "total %lf %lf %lf",orig_total / 100.0, opt_struct_total / 100.0,opt_total / 100.0);
+    fprintf(output, "total %lf %lf %lf",orig_total / 100.0, opt_struct_total / 100.0,opt_total / 100.0);
     fclose(output);
     fclose(fp);
 

@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
     e = pHead;
 
     e=Create_hashtable(e,HASH_SIZE);
-	printf("OK");
+    printf("OK");
 #if defined(__GNUC__)
     __builtin___clear_cache((char *) pHead, (char *) pHead + sizeof(entry));
 #endif
@@ -93,8 +93,8 @@ int main(int argc, char *argv[])
 
     printf("execution time of append() : %lf sec\n", cpu_time1);
     printf("execution time of findName() : %lf sec\n", cpu_time2);
-	
-   
+
+
     free(pHead);
 
     return 0;
