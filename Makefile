@@ -30,13 +30,13 @@ run: $(EXEC)
 	watch -d -t "./phonebook_orig && echo 3 | sudo tee /proc/sys/vm/drop_caches"
 
 cache-test: $(EXEC)
-	perf stat --repeat 100 \
+	perf stat --repeat 10 \
 		-e cache-misses,cache-references,instructions,cycles \
 		./phonebook_orig
-	perf stat --repeat 100 \
+	perf stat --repeat 10 \
 		-e cache-misses,cache-references,instructions,cycles \
 		./phonebook_opt_struct
-	perf stat --repeat 100 \
+	perf stat --repeat 10 \
 		-e cache-misses,cache-references,instructions,cycles \
 		./phonebook_opt_hash
 
@@ -53,4 +53,4 @@ calculate: calculate.c
 .PHONY: clean
 clean:
 	$(RM) $(EXEC) *.o perf.* \
-	      	calculate orig.txt opt.txt output.txt runtime.png
+	      	calculate orig.txt opt.txt output.txt runtime.png opt_hash.txt opt_struct.txt

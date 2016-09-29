@@ -12,7 +12,7 @@ int main(void)
     int i = 0;
     char append[50], find[50], total[50];
     double orig_sum_a = 0.0, orig_sum_f = 0.0, orig_a, orig_f, orig_t, orig_total=0.0;
-    for (i = 0; i < 100; i++) {
+    for (i = 0; i < 10; i++) {
         if (feof(fp)) {
             printf("ERROR: You need 100 datum instead of %d\n", i);
             printf("run 'make run' longer to get enough information\n\n");
@@ -34,7 +34,7 @@ int main(void)
         }
     }
     double opt_hash_sum_a = 0.0, opt_hash_sum_f = 0.0, opt_hash_a, opt_hash_f, opt_hash_total=0.0, opt_hash_t;
-    for (i = 0; i < 100; i++) {
+    for (i = 0; i < 10; i++) {
         if (feof(fp)) {
             printf("ERROR: You need 100 datum instead of %d\n", i);
             printf("run 'make run' longer to get enough information\n\n");
@@ -57,7 +57,7 @@ int main(void)
         }
     }
     double opt_struct_sum_a = 0.0, opt_struct_sum_f = 0.0, opt_struct_a, opt_struct_f, opt_struct_total=0.0, opt_struct_t;
-    for (i = 0; i < 100; i++) {
+    for (i = 0; i < 10; i++) {
         if (feof(fp)) {
             printf("ERROR: You need 100 datum instead of %d\n", i);
             printf("run 'make run' longer to get enough information\n\n");
@@ -68,9 +68,9 @@ int main(void)
         opt_struct_sum_f += opt_struct_f;
         opt_struct_total=opt_struct_sum_a+opt_struct_sum_f;
     }
-    fprintf(output, "append() %lf %lf %lf\n",orig_sum_a / 100.0, opt_struct_sum_a / 100.0, opt_hash_sum_a / 100.0);
-    fprintf(output, "findName() %lf %lf %lf\n", orig_sum_f / 100.0, opt_struct_sum_f / 100.0, opt_hash_sum_f / 100.0);
-    fprintf(output, "total %lf %lf %lf",orig_total / 100.0, opt_struct_total / 100.0,opt_hash_total / 100.0);
+    fprintf(output, "append() %lf %lf %lf\n",orig_sum_a / 10.0, opt_struct_sum_a / 10.0, opt_hash_sum_a / 10.0);
+    fprintf(output, "findName() %lf %lf %lf\n", orig_sum_f / 10.0, opt_struct_sum_f / 10.0, opt_hash_sum_f / 10.0);
+    fprintf(output, "total %lf %lf %lf",orig_total / 10.0, opt_struct_total / 10.0,opt_hash_total / 10.0);
     fclose(output);
     fclose(fp);
 
